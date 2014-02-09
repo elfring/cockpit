@@ -136,7 +136,7 @@ testassets_PROGRAMS = test-server test-agent
 testassets_DATA = src/ws/dbus-test.html	\
 		  src/ws/dbus.js 		\
 	 	  src/ws/dbus-test.js 		\
-		  src/ws/jquery-1.8.2.js 	\
+		  src/ws/jquery.min.js 	\
 		  src/ws/qunit-git.css 	\
 		  src/ws/qunit-git.js \
 		  $(NULL)
