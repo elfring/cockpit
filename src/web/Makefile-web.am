@@ -134,6 +134,11 @@ contentdatalibfonts_DATA = 					\
 	src/web/lib/fonts/PatternFlyIcons-webfont.svg 		\
 	src/web/lib/fonts/PatternFlyIcons-webfont.ttf 		\
 	src/web/lib/fonts/PatternFlyIcons-webfont.woff 		\
+	src/web/lib/fonts/FontAwesome.otf                       \
+	src/web/lib/fonts/fontawesome-webfont.eot               \
+	src/web/lib/fonts/fontawesome-webfont.svg		\
+	src/web/lib/fonts/fontawesome-webfont.ttf		\
+	src/web/lib/fonts/fontawesome-webfont.woff		\
 	$(NULL)
 
 # ----------------------------------------------------------------------------------------------------
