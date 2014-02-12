@@ -92,27 +92,28 @@
       </nav>
 
       <div id="dashboard">
-        <ul data-role="listview" data-inset="true" id="dashboard-local-disconnected"
-            style="display:block">
-          <li>
+
+        <div class="panel" id="dashboard-local-disconnected"
+             style="display:none">
+          <div class="panel-body">
             <table style="width:100%">
               <tr>
                 <td>Interface server</td>
                 <td id="dashboard-local-error"
                     style="color:red">Dude</td>
                 <td style="text-align:right">
-                  <button data-mini="true" data-inline="true"
-                          id="dashboard-local-reconnect">Reconnect</button>
+                  <button id="dashboard-local-reconnect">Reconnect</button>
                 </td>
               </tr>
             </table>
-          </li>
-        </ul>
+          </div>
+        </div>
 
-        <ul data-role="listview" data-inset="true" id="dashboard-machines">
-        </ul>
+        <div class="panel" id="dashboard-machines">
+        </div>
 
-        <div id="server-actions-menu"
+        <div style="display:none"
+             id="server-actions-menu"
              data-corners="false" data-history="false"
              data-role="popup">
           <div data-role="controlgroup" style="margin-top:0;margin-bottom:0">
@@ -129,7 +130,8 @@
           </div>
         </div>
 
-        <div data-role="popup" id="dashboard_add_server_dialog"
+        <div style="display:none"
+             data-role="popup" id="dashboard_add_server_dialog"
              data-theme="c" data-overlay-theme="a"
              data-history="false">
           <div data-role="header">

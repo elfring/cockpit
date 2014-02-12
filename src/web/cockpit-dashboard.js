@@ -38,6 +38,28 @@ function cockpit_client_error_description (error) {
         return error;
 }
 
+function cockpit_action_btn (spec) {
+    var actions = [ "Foo", "Bar", "Baz" ];
+    var btn =
+        $('<div>', { 'class': 'btn-group' }).append(
+            $('<button>', { 'class': 'btn btn-default' }).
+                text(_("Action")),
+            $('<button>', { 'class': 'btn btn-default dropdown-toggle',
+                             'data-toggle': 'dropdown'
+                          }).
+                append(
+                    $('<span>', { 'class': 'caret' })),
+            $('<ul>', { 'class': 'dropdown-menu dropdown-menu-right',
+                        'role': 'menu'
+                      }).
+                append(
+                    actions.map(function (a) {
+                        return $('<li>').append($('<a>').text(a));
+                    })));
+
+    return btn;
+}
+
 PageDashboard.prototype = {
     _init: function() {
         this.id = "dashboard";
@@ -145,32 +167,16 @@ PageDashboard.prototype = {
                                 $('<img/>', { 'src': "images/small-spinner.gif" })),
                             $('<div/>', { 'class': "cockpit-machine-error", 'style': "color:red" })),
                         $('<td/>', { style: "text-align:right;width:180px" }).append(
-                            $('<div>', { "data-role": "controlgroup",
-                                         "data-type": "horizontal"
-                                       }).append(
-                                           $('<button>', { on: { click: $.proxy (this, "action",
-                                                                                 cockpit_machines[i])
-                                                               },
-                                                           "class": "cockpit-machine-action",
-                                                           "data-inline": "true"
-                                                         }).
-                                               text("Manage"),
-                                           $('<button>', { on: { click: open_actionmenu (cockpit_machines[i])
-                                                               },
-                                                           "class": "cockpit-machine-actions",
-                                                           "data-inline": "true"
-                                                         }).
-                                               text("...")))));
-            var li =
-                $('<li/>').append(table);
-            machines.append (li);
+                            cockpit_action_btn())));
+
+            var bd =
+                $('<div/>', { 'class': 'panel-body' }).append(table);
+            machines.append (bd);
             $(cockpit_machines[i].client).on('state-change', $.proxy(this, "update"));
         }
-        machines.append('<li style="text-align:right">' +
-                        '<div data-role="controlgroup" data-type="horizontal">' +
-                        '<button data-inline="true" id="dashboard-add-server">' + _("Add Server") + '</button>' +
-                        '</div>' +
-                        '</li>');
+        machines.append('<div class="panel-body" style="text-align:right">' +
+                        '<button class="btn btn-default" id="dashboard-add-server">' + _("Add Server") + '</button>' +
+                        '</div>');
 
         $("#dashboard-add-server").on('click', $.proxy(this, "add_server"));
 
@@ -180,7 +186,7 @@ PageDashboard.prototype = {
     update: function () {
         var me = this;
 
-        $('#dashboard-machines > li').each (function (i, e) {
+        $('#dashboard-machines > div.panel-body').each (function (i, e) {
             var info_divs = $(e).find('.cockpit-machine-info > div');
             var action_btn = $(e).find('.cockpit-machine-action');
             var error_div = $(e).find('.cockpit-machine-error');
