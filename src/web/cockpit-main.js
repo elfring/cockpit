@@ -247,6 +247,8 @@ function cockpit_disconnect() {
     cockpit_dbus_local_client = null;
     cockpit_machines = [];
 
+    cockpit_expect_disconnect();
+
     local_client.close("disconnecting");
     for (var i = 0; i < machines.length; i++)
         machines[i].client.close("disconnecting");
@@ -261,13 +263,13 @@ function cockpit_expect_disconnect() {
 function cockpit_show_disconnected() {
     if (!cockpit_expecting_disconnect) {
         $("#disconnected-error").text(cockpit_client_error_description(cockpit_dbus_client.error));
-        $('[data-role="popup"]').popup('close');
-        cockpit_popup(null, "#disconnected");
+        $('[role="modal"]').modal('hide');
+        $('#disconnected').modal('show');
     }
 }
 
 function cockpit_hide_disconnected() {
-    // XXX - $("#disconnected").popup('close');
+    $('#disconnected').modal('hide');
 }
 
 var last_menu;
