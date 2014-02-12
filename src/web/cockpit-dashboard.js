@@ -38,24 +38,42 @@ function cockpit_client_error_description (error) {
         return error;
 }
 
-function cockpit_action_btn (spec) {
-    var actions = [ "Foo", "Bar", "Baz" ];
+function cockpit_action_btn (func, spec) {
+    var direct_btn =
+        $('<button>', { 'class': 'btn btn-default' }).text("");
     var btn =
         $('<div>', { 'class': 'btn-group' }).append(
-            $('<button>', { 'class': 'btn btn-default' }).
-                text(_("Action")),
+            direct_btn,
             $('<button>', { 'class': 'btn btn-default dropdown-toggle',
                              'data-toggle': 'dropdown'
                           }).
                 append(
                     $('<span>', { 'class': 'caret' })),
-            $('<ul>', { 'class': 'dropdown-menu dropdown-menu-right',
+            $('<ul>', { 'class': 'dropdown-menu',
+                        'style': 'right:0px;left:auto;min-width:0',
                         'role': 'menu'
                       }).
                 append(
-                    actions.map(function (a) {
-                        return $('<li>').append($('<a>').text(a));
+                    spec.map(function (s) {
+                        return $('<li>').
+                            append(
+                                $('<a>', { 'on': { 'click': function () {
+                                    func (s.action);
+                                }}}).text(s.title));
                     })));
+
+    btn.select = function (a) {
+        console.log ("S %s", a);
+        spec.forEach(function (s) {
+            if (s.action == a || (a == 'default' && s.is_default)) {
+                direct_btn.text(s.title);
+                direct_btn.off('click');
+                direct_btn.on('click', function () { func(s.action); });
+            }
+        });
+    };
+
+    btn.select ('default');
 
     return btn;
 }
@@ -124,7 +142,21 @@ PageDashboard.prototype = {
             }
         }
 
-        function open_actionmenu (machine) {
+        function machine_action_func (machine) {
+            return function (action) {
+                me.server_action (machine, action);
+            };
+        }
+
+        var machine_action_spec = [
+            { title: _("Manage"),          action: 'manage',     is_default: true },
+            { title: _("Connect"),         action: 'connect' },
+            { title: _("Disconnect"),      action: 'disconnect' },
+            { title: _("Remove"),          action: 'remove' },
+            { title: _("Rescue Terminal"), action: 'rescue' }
+        ];
+
+        function xxx (machine) {
             return function () {
                 var o = $(this).offset();
                 me.server_machine = machine;
@@ -167,7 +199,8 @@ PageDashboard.prototype = {
                                 $('<img/>', { 'src': "images/small-spinner.gif" })),
                             $('<div/>', { 'class': "cockpit-machine-error", 'style': "color:red" })),
                         $('<td/>', { style: "text-align:right;width:180px" }).append(
-                            cockpit_action_btn())));
+                            cockpit_action_btn (machine_action_func (cockpit_machines[i]),
+                                                machine_action_spec))));
 
             var bd =
                 $('<div/>', { 'class': 'panel-body' }).append(table);
