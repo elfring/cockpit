@@ -34,7 +34,7 @@ function cockpit_content_init ()
     cockpit_loc_trail = [ ];
 
     $(window).on('hashchange', function () {
-         if (window.location.hash != cockpit_current_hash)
+        if (window.location.hash != cockpit_current_hash)
             cockpit_go_hash (window.location.hash);
     });
 
@@ -77,11 +77,10 @@ function cockpit_content_update_loc_trail ()
     for (i = 0; i < cockpit_loc_trail.length; i++) {
         var p = cockpit_page_from_id (cockpit_loc_trail[i].page);
         var title = p? (p.getTitleHtml? p.getTitleHtml() : cockpit_esc(p.getTitle())) : "??";
-        var button = $('<button data-inline="true" data-theme="c">').html(title);
-        box.append(button);
-        button.on('click', go(cockpit_loc_trail.slice(0, i+1)));
+        var elt = $('<li/>').html(title);
+        box.append(elt);
+        elt.on('click', go(cockpit_loc_trail.slice(0, i+1)));
     }
-    box.trigger('create');
 
     var doc_title = "";
     if (cockpit_loc_trail.length == 1)
@@ -256,7 +255,7 @@ function cockpit_decode_trail (hash)
 function cockpit_show_hash ()
 {
     cockpit_current_hash = cockpit_encode_trail (cockpit_loc_trail);
-    $.mobile.navigate (cockpit_current_hash, { }, true);
+    window.location.hash = cockpit_current_hash;
 }
 
 function cockpit_go_hash (hash)
@@ -285,7 +284,11 @@ function cockpit_page_enter (id)
 
     if (page) {
         // cockpit_debug("enter() for page with id " + id);
-        page.enter(first_visit);
+        try {
+            page.enter(first_visit);
+        } catch (e) {
+            console.log("ouch");
+        }
     }
     cockpit_visited_pages[id] = true;
 }
@@ -295,7 +298,11 @@ function cockpit_page_leave (id)
     var page = cockpit_page_from_id(id);
     if (page) {
         // cockpit_debug("leave() for page with id " + id);
-        page.leave();
+        try {
+            page.leave();
+        } catch (e) {
+            console.log("ouch");
+        }
     }
 }
 
@@ -304,8 +311,13 @@ function cockpit_page_show(id)
     var page = cockpit_page_from_id(id);
     if (page) {
         // cockpit_debug("show() for page with id " + id);
-        if (cockpit_content_is_shown)
-            page.show();
+        if (cockpit_content_is_shown) {
+            try {
+                page.show();
+            } catch (e) {
+                console.log ("ouch");
+            }
+        }
     }
 }
 

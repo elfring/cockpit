@@ -14,26 +14,80 @@
   <body onload="$(document).ready(cockpit_init);">
 
     <div class="page" id="loading">
-      Loading
     </div>
 
     <div class="page" id="login" style="display:none">
       <center>
-        <h2 id="login-display-name"></h2>
+        <div id="login-display-name"></div>
         <img id="login-avatar" src="images/server-large.png"/>
-        <div class="form-group" id="login-form">
-          <input type="text" class="form-control" id="login-user-input">
-          <input type="password" class="form-control" id="login-password-input">
-          <span class="help-block" id="login-error-message"></span>
-        </div>
-        <button class="btn btn-primary btn-lg" id="login-button">Log In</button>
       </center>
+      <div class="container">
+        <span>&nbsp;</span>
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-8">
+            <div class="form-group" id="login-form">
+              <input type="text" class="form-control" id="login-user-input">
+              <span>&nbsp;</span>
+              <input type="password" class="form-control" id="login-password-input">
+              <span class="help-block" id="login-error-message"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-11" style="text-align:right">
+            <button class="btn btn-primary btn-lg" id="login-button">Log In</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="page" id="content" style="display:none">
-      Content
 
-      <button onclick="cockpit_logout();">Logout</button>
+      <nav class="navbar navbar-default navbar-pf" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <img src="images/brand.svg" alt="Cockpit" />
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-utility">
+            <li>
+              <a>Status</a>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">
+                <span class="pficon pficon-user"></span>
+                Brian Johnson <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#">Display Language</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">About Cockpit</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">Account Settings</a>
+                </li>
+                <li>
+                  <a onclick="cockpit_logout();">Log out</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <ol class="breadcrumb" id="content-loc-trail">
+        </ol>
+      </nav>
 
       <div id="dashboard">
       </div>
