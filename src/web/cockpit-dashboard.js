@@ -171,8 +171,6 @@ PageDashboard.prototype = {
                         '<button data-inline="true" id="dashboard-add-server">' + _("Add Server") + '</button>' +
                         '</div>' +
                         '</li>');
-        machines.trigger('create');
-        machines.listview('refresh');
 
         $("#dashboard-add-server").on('click', $.proxy(this, "add_server"));
 

@@ -176,7 +176,7 @@ function cockpit_update_machines ()
     if (!cockpit_dbus_client)
         cockpit_select_legacy_client ();
 
-    // XXX - cockpit_dashboard_update_machines ();
+    cockpit_dashboard_update_machines ();
 }
 
 function cockpit_init_connect_local()
