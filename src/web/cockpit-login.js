@@ -85,6 +85,7 @@ function cockpit_login_show ()
     $("#login-password-input").val("");
     cockpit_login_update ();
 
+    cockpit_content_leave ();
     $('.page').hide();
     $('#login').show();
 

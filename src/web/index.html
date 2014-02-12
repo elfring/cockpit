@@ -65,19 +65,19 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">
                 <span class="pficon pficon-user"></span>
-                Brian Johnson <b class="caret"></b>
+                <span id="content-user-name"></span><b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="#">Display Language</a>
+                  <a data-toggle="modal" data-target="#display-language-dialog">Display Language</a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                  <a href="#">About Cockpit</a>
+                  <a data-toggle="modal" data-target="#about">About Cockpit</a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                  <a href="#">Account Settings</a>
+                  <a onclick="cockpit_go_login_account();">Account Settings</a>
                 </li>
                 <li>
                   <a onclick="cockpit_logout();">Log out</a>
@@ -2166,84 +2166,95 @@
 
     </div>
 
-    <div class="page" id="popups">
-
-      <div data-role="popup" id="about"
-           data-history="false" data-overlay-theme="a">
-        <div data-role="header">
-	  <h1 translatable="yes">About Cockpit</h1>
-        </div>
-        <div data-role="content">
-          <div translatable="yes">Cockpit is an advanced application
-            with many options.</div>
-          <p>
-            <ul data-role="listview" data-inset="true">
-              <li><table style="width:100%"><tr>
-                    <td style="width:100px;text-align:right"
-                        translatable="yes">Version</td>
-                    <td style="width:30px"></td>
-                    <td><div id="about-version"></div></td>
-              </tr></table></li>
-              <li><table style="width:100%"><tr>
-                    <td style="width:100px;text-align:right"
-                        translatable="yes">Build</td>
-                    <td style="width:30px"></td>
-                    <td><div id="about-build-info"></div></td>
-              </tr></table></li>
-            </ul>
-            <center><button onclick="$('#about').popup('close')">Close</button></center>
-        </div>
-      </div>
-
-      <div data-role="popup" id="display-language-dialog"
-           data-theme="c" data-history="false" data-overlay-theme="a">
-        <div data-role="header">
-	  <h1 translatable="yes">Display Language</h1>
-        </div>
-        <div data-role="content">
-	  <p translatable="yes">Choose the language to be used in the
-	    application</p>
-          <select id="display-language-list" size="10" data-role="none">
-          </select>
-          <br>
-          <div class="ui-grid-a">
-            <div class="ui-block-a">
-              <a data-role="button" data-theme="a" data-rel="back"
-                 translatable="yes">Cancel</a>
-            </div>
-            <div class="ui-block-b">
-              <a id="display-language-select-button"
-                 data-role="button" data-theme="b"
-                 translatable="yes">Select</a>
-            </div>
+    <div class="modal fade" id="display-language-dialog"
+         tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Display Language</h4>
+          </div>
+          <div class="modal-body">
+	    <p translatable="yes">Choose the language to be used in the
+	      application</p>
+            <select id="display-language-list" size="10" data-role="none">
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">
+              Cancel
+            </button>
+            <button class="btn btn-primary" id="display-language-select-button">
+              Select
+            </button>
           </div>
         </div>
       </div>
+    </div>
 
-      <div data-role="popup" id="disconnected"
-           data-history="false" data-overlay-theme="a">
-        <div data-role="content"
-             style="width:300px">
-          <h1><center>Disconnected</center></h1>
-          <div id="disconnected-error">
+    <div class="modal fade" id="disconnected"
+         tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Disconnected</h4>
           </div>
-          <button id="disconnected-reconnect"
-                  onclick="cockpit_reconnect();">Try to reconnect</button>
-          <button id="disconnected-logout"
-                  onclick="cockpit_logout();">Log out</button>
+          <div class="modal-body">
+            <div id="disconnected-error"></div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" onclick="cockpit_reconnect();">
+              Try to reconnect
+            </button>
+            <button class="btn btn-primary" onclick="cockpit_logout();">
+              Log out
+            </button>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div id="error-popup"
-           data-role="popup" data-theme="c" data-overlay-theme="a"
-           data-history="false">
-        <div data-role="header">
-	  <h1 id="error-popup-title"></h1>
+    <div class="modal fade" id="error-popup"
+         tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="error-popup-title"></h4>
+          </div>
+          <div class="modal-body">
+            <p id="error-popup-message"></p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
         </div>
-        <div data-role="content">
-	  <p id="error-popup-message"></p>
-          <button onclick="$('#error-popup').popup('close')">Close
-          </button>
+      </div>
+    </div>
+
+    <div class="modal fade" id="about"
+         tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">About Cockpit</h4>
+          </div>
+          <div class="modal-body">
+            <div translatable="yes">
+              Cockpit is an advanced application with many options.
+            </div>
+            <div>
+              <span translatable="yes">Version</span> <span id="about-version"></span>.
+            </div>
+            <div>
+              <span id="about-build-info"></span>.
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>

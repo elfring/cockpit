@@ -33,6 +33,16 @@ function cockpit_content_init ()
     });
     cockpit_loc_trail = [ ];
 
+    $('div[role="dialog"]').on('show.bs.modal', function() {
+	cockpit_page_enter($(this).attr("id"));
+    });
+    $('div[role="dialog"]').on('shown.bs.modal', function() {
+	cockpit_page_show($(this).attr("id"));
+    });
+    $('div[role="dialog"]').on('hidden.bs.modal', function() {
+	cockpit_page_leave($(this).attr("id"));
+    });
+
     $(window).on('hashchange', function () {
         if (window.location.hash != cockpit_current_hash)
             cockpit_go_hash (window.location.hash);
@@ -45,11 +55,19 @@ function cockpit_content_init ()
 
 function cockpit_content_show ()
 {
-    $('#settings-button').text(cockpit_connection_config.name || cockpit_connection_config.user || "???").button('refresh');
+    $('#content-user-name').text(cockpit_connection_config.name || cockpit_connection_config.user || "???").button('refresh');
 
     $('.page').hide();
     $('#content').show();
+    cockpit_content_is_shown = true;
     cockpit_go_hash (window.location.hash);
+}
+
+function cockpit_content_leave ()
+{
+    if (cockpit_loc_trail.length > 0)
+        cockpit_page_leave (cockpit_loc_trail[cockpit_loc_trail.length-1].page);
+    cockpit_content_is_shown = false;
 }
 
 function cockpit_content_refresh ()
@@ -275,6 +293,16 @@ function cockpit_page_from_id (id)
     return page;
 }
 
+function cockpit_be_safe (thunk)
+{
+    try {
+        return thunk ();
+    } catch (e) {
+        cockpit_show_unexpected_error (e.toString());
+        return undefined;
+    }
+}
+
 function cockpit_page_enter (id)
 {
     var page = cockpit_page_from_id(id);
@@ -284,11 +312,9 @@ function cockpit_page_enter (id)
 
     if (page) {
         // cockpit_debug("enter() for page with id " + id);
-        try {
+        cockpit_be_safe (function () {
             page.enter(first_visit);
-        } catch (e) {
-            console.log("ouch");
-        }
+        });
     }
     cockpit_visited_pages[id] = true;
 }
@@ -298,11 +324,9 @@ function cockpit_page_leave (id)
     var page = cockpit_page_from_id(id);
     if (page) {
         // cockpit_debug("leave() for page with id " + id);
-        try {
+        cockpit_be_safe (function () {
             page.leave();
-        } catch (e) {
-            console.log("ouch");
-        }
+        });
     }
 }
 
@@ -312,11 +336,9 @@ function cockpit_page_show(id)
     if (page) {
         // cockpit_debug("show() for page with id " + id);
         if (cockpit_content_is_shown) {
-            try {
+            cockpit_be_safe (function () {
                 page.show();
-            } catch (e) {
-                console.log ("ouch");
-            }
+            });
         }
     }
 }
@@ -347,9 +369,15 @@ function cockpit_set_page_param(key, val)
 
 function cockpit_show_error_dialog(title, message)
 {
-    $("#error-popup-title").text(title);
-    $("#error-popup-message").text(message);
-    cockpit_popup (null, "#error-popup");
+    if (message) {
+        $("#error-popup-title").text(title);
+        $("#error-popup-message").text(message);
+    } else {
+        $("#error-popup-title").text(_("Error"));
+        $("#error-popup-message").text(title);
+    }
+
+    $('#error-popup').modal('show');
 }
 
 function cockpit_show_unexpected_error(error)
