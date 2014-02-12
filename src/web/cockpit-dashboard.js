@@ -63,7 +63,6 @@ function cockpit_action_btn (func, spec) {
                     })));
 
     btn.select = function (a) {
-        console.log ("S %s", a);
         spec.forEach(function (s) {
             if (s.action == a || (a == 'default' && s.is_default)) {
                 direct_btn.text(s.title);
@@ -330,7 +329,7 @@ PageDashboard.prototype = {
     },
 
     add_server: function () {
-        cockpit_popup(null, "#dashboard_setup_server_dialog");
+        $('#dashboard_setup_server_dialog').modal('show');
     }
 };
 

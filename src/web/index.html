@@ -102,7 +102,7 @@
                 <td id="dashboard-local-error"
                     style="color:red">Dude</td>
                 <td style="text-align:right">
-                  <button id="dashboard-local-reconnect">Reconnect</button>
+                  <button class="btn btn-default" id="dashboard-local-reconnect">Reconnect</button>
                 </td>
               </tr>
             </table>
@@ -110,41 +110,6 @@
         </div>
 
         <div class="panel" id="dashboard-machines">
-        </div>
-
-        <div style="display:none"
-             data-role="popup" id="dashboard_add_server_dialog"
-             data-theme="c" data-overlay-theme="a"
-             data-history="false">
-          <div data-role="header">
-            <h1>Add Server</h1>
-          </div>
-          <div data-role="content">
-            <table style="width:100%" class="cockpit-form-table">
-              <tr>
-                <td translatable="yes"
-                    style="text-align:right">Address</td>
-                <td style="width:500px">
-                  <input type="text"
-                         id="dashboard_add_server_address"/>
-                </td>
-              </tr>
-            </table>
-            <ul data-role="listview" data-inset="true" id="dashboard_add_server_discovered">
-            </ul>
-            <table style="width:100%">
-              <tr>
-                <td style="text-align:left;width:30%">
-                  <button id="dashboard_add_server_cancel"
-                          data-theme="a" translatable="yes">Cancel</button>
-                </td>
-                <td style="text-align:right;width:30%">
-                  <button id="dashboard_add_server_add"
-                          data-theme="b" translatable="yes">Add</button>
-                </td>
-              </tr>
-            </table>
-          </div>
         </div>
 
       </div>
@@ -2165,7 +2130,7 @@
             </select>
           </div>
           <div class="modal-footer">
-            <button class="btn" data-dismiss="modal">
+            <button class="btn btn-default" data-dismiss="modal">
               Cancel
             </button>
             <button class="btn btn-primary" id="display-language-select-button">
@@ -2236,8 +2201,30 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">
+            <button class="btn btn-primary" data-dismiss="modal">
               Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="dashboard_add_server_dialog"
+         tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Server</h4>
+          </div>
+          <div class="modal-body">
+            <input type="text" class="form-control" id="dashboard_add_server_address"/>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal">
+              Cancel
+            </button>
+            <button class="btn btn-default" id="dashboard_add_server_add">
+              Add
             </button>
           </div>
         </div>
