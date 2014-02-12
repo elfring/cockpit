@@ -28,10 +28,6 @@ function cockpit_init() {
     cockpit_dbus_client = null;
     cockpit_visited_pages = {};
 
-    $("#disconnected-screen").on('click', function(e) {
-        e.stopPropagation();
-    });
-
     var lang_code = null;
     var language, language_normalized, code, code_normalized;
 
@@ -180,7 +176,7 @@ function cockpit_update_machines ()
     if (!cockpit_dbus_client)
         cockpit_select_legacy_client ();
 
-    cockpit_dashboard_update_machines ();
+    // XXX - cockpit_dashboard_update_machines ();
 }
 
 function cockpit_init_connect_local()
@@ -271,7 +267,7 @@ function cockpit_show_disconnected() {
 }
 
 function cockpit_hide_disconnected() {
-    $("#disconnected").popup('close');
+    // XXX - $("#disconnected").popup('close');
 }
 
 var last_menu;

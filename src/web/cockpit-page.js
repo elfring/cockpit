@@ -27,44 +27,11 @@ var cockpit_content_is_shown = false;
 
 function cockpit_content_init ()
 {
-    $('#content').page();
-
-    var pages = $('#content > [data-role="content"] > div');
+    var pages = $('#content > div');
     pages.each (function (i, p) {
         $(p).hide();
     });
     cockpit_loc_trail = [ ];
-
-    $("div:jqmData(role=\"popup\")").bind("popupbeforeposition", function() {
-	cockpit_page_enter($(this).attr("id"));
-    });
-    $("div:jqmData(role=\"popup\")").bind("popupafteropen", function() {
-    	cockpit_page_show($(this).attr("id"));
-    });
-    $("div:jqmData(role=\"popup\")").bind("popupafterclose", function() {
-    	cockpit_page_leave($(this).attr("id"));
-    });
-
-    // Rewrite links to popups to open via cockpit_popup or
-    // cockpit_menu_open, as appropriate.
-    //
-    var popup_open = { };
-    var m;
-    $('[data-role="popup"]').each(function(i,p) {
-        var href = "#" + $(p).attr('id');
-        if ($(p).attr('data-menu') == 'true')
-            popup_open[href] = 'cockpit_open_menu';
-        else
-            popup_open[href] = 'cockpit_popup';
-    });
-    $('a[href]').each(function(i,a) {
-        a=$(a);
-        m=popup_open[a.attr('href')];
-        if (m) {
-            a.attr('onclick', m + "(this, '" + a.attr('href') + "')");
-            a.removeAttr('href');
-        }
-    });
 
     $(window).on('hashchange', function () {
          if (window.location.hash != cockpit_current_hash)
@@ -74,25 +41,15 @@ function cockpit_content_init ()
     cockpit_search_init ($('#content-search'));
 
     cockpit_content_refresh ();
-
-    $('#content').on('pageshow', function () {
-        cockpit_content_is_shown = true;
-        if (cockpit_loc_trail.length > 0)
-            cockpit_page_show (cockpit_loc_trail[cockpit_loc_trail.length-1].page);
-    });
-
-    $('#content').on('pagehide', function () {
-        cockpit_content_is_shown = false;
-    });
 }
 
 function cockpit_content_show ()
 {
     $('#settings-button').text(cockpit_connection_config.name || cockpit_connection_config.user || "???").button('refresh');
-    if (!$.mobile.activePage || $.mobile.activePage.attr('id') != "content") {
-        $.mobile.changePage($('#content'), { changeHash: false });
-        cockpit_go_hash (window.location.hash);
-    }
+
+    $('.page').hide();
+    $('#content').show();
+    cockpit_go_hash (window.location.hash);
 }
 
 function cockpit_content_refresh ()
@@ -104,7 +61,6 @@ function cockpit_content_refresh ()
 
 function cockpit_content_header_changed ()
 {
-    $('#content > [data-role="header"]').fixedtoolbar('updatePagePadding');
 }
 
 function cockpit_content_update_loc_trail ()
