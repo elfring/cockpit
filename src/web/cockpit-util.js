@@ -271,3 +271,78 @@ function cockpit_find_in_array (array, elt) {
     }
     return false;
 }
+
+function cockpit_action_btn (func, spec) {
+    var direct_btn, indirect_btns, btn;
+    var direct_action, disabled;
+
+    direct_btn =
+        $('<button>', { 'class': 'btn btn-default' }).text("");
+
+    indirect_btns = [ ];
+    disabled = [ ];
+    spec.forEach (function (s, i) {
+        indirect_btns[i] = $('<li>', { 'class': 'presentation' }).
+            append(
+                $('<a>', { 'role': 'menuitem',
+                           'on': { 'click': function () {
+                                              if (!disabled[i])
+                                                  func (s.action);
+                                            }
+                                 }
+                         }).text(s.title));
+        disabled[i] = false;
+    });
+
+    btn =
+        $('<div>', { 'class': 'btn-group' }).append(
+            direct_btn,
+            $('<button>', { 'class': 'btn btn-default dropdown-toggle',
+                             'data-toggle': 'dropdown'
+                          }).
+                append(
+                    $('<span>', { 'class': 'caret' })),
+            $('<ul>', { 'class': 'dropdown-menu',
+                        'style': 'right:0px;left:auto;min-width:0',
+                        'role': 'menu'
+                      }).
+                append(indirect_btns));
+
+    function select (a) {
+        console.log ("S %s", a);
+        spec.forEach(function (s, i) {
+            if (s.action == a || (a == 'default' && s.is_default)) {
+                direct_action = s.action;
+                direct_btn.text(s.title);
+                direct_btn.off('click');
+                direct_btn.on('click', function () { func(s.action); });
+                direct_btn.prop('disabled', disabled[i]);
+            }
+        });
+    }
+
+    function enable (a, val) {
+        console.log ("E %s %s", a, val);
+        if (direct_action == a)
+            direct_btn.prop('disabled', !val);
+        spec.forEach(function (s, i) {
+            if (s.action == a) {
+                disabled[i] = !val;
+                indirect_btns[i].toggleClass('disabled', !val);
+            }
+        });
+    }
+
+    select ('default');
+
+    $.data(btn[0], 'cockpit-action-btn-funcs', { select: select, enable: enable });
+    return btn;
+}
+
+function cockpit_action_btn_select (btn, action) {
+    $.data(btn[0], 'cockpit-action-btn-funcs').select(action);
+}
+
+function cockpit_action_btn_enable (btn, action, val) {
+    $.data(btn[0], 'cockpit-action-btn-funcs').enable(action, val);
+}
