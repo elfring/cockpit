@@ -118,12 +118,8 @@ PageDashboard.prototype = {
         this.id = "dashboard";
     },
 
-    getTitleHtml: function() {
-        return C_("page-title", '<img src="images/header-gear.png">');
-    },
-
     getTitle: function() {
-        return C_("page-title", "Server Console");
+        return C_("page-title", "All");
     },
 
     enter: function(first_visit) {
@@ -224,7 +220,7 @@ PageDashboard.prototype = {
                                                 machine_action_spec).addClass('cockpit-machine-action'))));
 
             var bd =
-                $('<div/>', { 'class': 'panel-body' }).append(table);
+                $('<li>', { 'class': 'list-group-item' }).append(table);
             machines.append (bd);
             $(cockpit_machines[i].client).on('state-change', $.proxy(this, "update"));
         }
@@ -240,7 +236,7 @@ PageDashboard.prototype = {
     update: function () {
         var me = this;
 
-        $('#dashboard-machines > div.panel-body').each (function (i, e) {
+        $('#dashboard-machines > li').each (function (i, e) {
             var info_divs = $(e).find('.cockpit-machine-info > div');
             var action_btn = $(e).find('.cockpit-machine-action');
             var error_div = $(e).find('.cockpit-machine-error');

@@ -95,9 +95,9 @@ function cockpit_content_update_loc_trail ()
     for (i = 0; i < cockpit_loc_trail.length; i++) {
         var p = cockpit_page_from_id (cockpit_loc_trail[i].page);
         var title = p? (p.getTitleHtml? p.getTitleHtml() : cockpit_esc(p.getTitle())) : "??";
-        var elt = $('<li/>').html(title);
-        box.append(elt);
-        elt.on('click', go(cockpit_loc_trail.slice(0, i+1)));
+        var btn = $('<button>', { 'class': 'btn btn-default' }).html(title);
+        box.append(btn);
+        btn.on('click', go(cockpit_loc_trail.slice(0, i+1)));
     }
 
     var doc_title = "";

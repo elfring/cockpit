@@ -19,8 +19,51 @@
 
 /* ---------------------------------------------------------------------------------------------------- */
 
-#page-login {
-  color: #000;
+/* Hacks on top for now */
+
+/* Panels don't draw borders between them */
+.panel > .table > tbody:first-child td {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+/* Contatiner is too close to the top navbar */
+.container-fluid {
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+/* Style a button group */
+
+.navbar-primary .btn-group {
+    margin: 5px 0;
+}
+
+.navbar-primary .btn-group .btn {
+    background-image:  linear-gradient(to bottom, #1D1D1D 0%, #030303 100%);
+    padding: 5px 20px;
+    color: #fff;
+    border-color: #494949;
+}
+
+.navbar-primary .btn-group .btn:hover {
+    background-image: linear-gradient(to bottom, #2f2f2f 0%, #232323 100%);
+}
+
+
+.navbar-primary .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-radius: 5px 0 0 5px;
+}
+
+.navbar-primary .btn-group > .btn:last-child:not(:first-child):not(.dropdown-toggle) {
+    border-radius: 0 5px 5px 0;
+}
+
+.navbar-primary .btn-group > .btn:only-child:not(.dropdown-toggle) {
+    border-radius: 5px 5px 5px 5px;
+}
+
+.navbar-primary .navbar-form {
+    margin: 6px;
 }
 
 /* --- XXX -- old stuff --------------------------------------------------------------------------------*/
