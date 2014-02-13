@@ -19,9 +19,7 @@
 
 function cockpit_login_update ()
 {
-    var ok = ($('#login-user-input').val() &&
-              $('#login-password-input').val());
-    $('#login-button').button(ok? 'enable' : 'disable');
+    $("#login-error-message").text("");
 }
 
 function cockpit_login_init ()
@@ -35,11 +33,12 @@ function cockpit_login_init ()
     $("#login-display-name").text(display_hostname);
     if (cockpitdyn_avatar_data_url)
         $("#login-avatar").attr('src', cockpitdyn_avatar_data_url);
+    $('#login-spinner').hide();
 
     function login ()
     {
         $('#login-error-message').text("");
-        $('#login-form').toggleClass('has-error', false);
+        $('#login-spinner').show();
 
         var req = new XMLHttpRequest();
         var loc = window.location.protocol + "//" + window.location.host + "/login";
@@ -48,12 +47,12 @@ function cockpit_login_init ()
         req.onreadystatechange = function (event) {
 	    if (req.readyState == 4) {
                 clearTimeout(timeout_id);
+                $('#login-spinner').hide();
                 if (req.status == 200) {
                     cockpit_connection_config = JSON.parse(req.responseText);
                     cockpit_init_connect_local();
                 } else {
                     $("#login-error-message").text(_("Sorry, that didn't work.") + " (" + req.status + ")");
-                    $('#login-form').toggleClass('has-error', true);
                     $("#login-password-input").focus();
                 }
 	    }
@@ -94,15 +93,12 @@ function cockpit_login_show ()
 
 function cockpit_login_refresh ()
 {
-    $("#login-user-input")[0].placeholder = C_("login-screen", "Enter user name");
-    $("#login-password-input")[0].placeholder = C_("login-screen", "Enter password");
 }
 
 function cockpit_logout (reason)
 {
     if (reason) {
         $("#login-error-message").text(reason);
-        $('#login-form').toggleClass('has-error', true);
     }
 
     var req = new XMLHttpRequest();

@@ -21,6 +21,16 @@
 
 /* Hacks on top for now */
 
+#login {
+    background: #080808 url("images/bg-login.jpg") repeat-x 50% 0;
+    background-size: auto;
+    color: #fff;
+}
+
+html, body {
+    height: 100%;
+}
+
 a {
     cursor: pointer;
 }

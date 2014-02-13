@@ -55,6 +55,7 @@ contentdataimagesdir = $(pkgdatadir)/content/images
 contentdataimages_DATA = 					\
 	src/web/images/logo.svg			                \
 	src/web/images/brand.svg		                \
+	src/web/images/bg-login.jpg				\
 	src/web/images/category-journal.png	                \
 	src/web/images/category-networking.png	                \
 	src/web/images/category-services.png	                \
@@ -85,7 +86,6 @@ contentdatalib_DATA = 						\
 
 contentdatalibimagesdir = $(pkgdatadir)/content/lib/images
 contentdatalibimages_DATA = 					\
-	src/web/lib/images/bg-login.jpg				\
 	$(NULL)
 
 contentdatalibfontsdir = $(pkgdatadir)/content/lib/fonts
