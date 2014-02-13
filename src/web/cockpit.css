@@ -92,15 +92,6 @@ a {
 
 /* Break up sidebar in columns in smaller sizes*/
 
-@media (min-width: 320px) and (max-width: 767px) {
-    .sidebar ul {
-        -moz-column-count: 2;
-        -moz-column-gap: 20px;
-        -webkit-column-count: 2;
-        -webkit-column-gap: 20px;
-    }
-}
-
 .cockpit-info-table td {
     padding-left: 0.75em;
     padding-top: 0.25em;
@@ -116,6 +107,10 @@ a {
     color: black;
 }
 
+.cockpit-category-icon {
+	float: left;
+	padding: 5px;
+}
 
 /* --- XXX -- old stuff --------------------------------------------------------------------------------*/
 
@@ -310,12 +305,6 @@ a {
 .cockpit-link {
     color:           blue;
     text-decoration: underline;
-}
-
-.cockpit-category-icon {
-	float: left;
-	padding-top: 0.9em;
-	padding-left: 10px;
 }
 
 .ui-li-static.cockpit-image img {
