@@ -34,10 +34,9 @@ a {
     border-top: 1px solid rgb(221, 221, 221);
 }
 
-/* Contatiner is too close to the top navbar */
+/* Contatiner is glued to the navigation and sides */
 .container-fluid {
-    margin-top: 20px;
-    margin-right: 20px;
+    margin: 20px;
 }
 
 /* Style a button group */
@@ -91,8 +90,6 @@ a {
         -webkit-column-gap: 20px;
     }
 }
-
-
 
 
 /* --- XXX -- old stuff --------------------------------------------------------------------------------*/
