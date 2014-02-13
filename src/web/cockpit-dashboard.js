@@ -39,9 +39,28 @@ function cockpit_client_error_description (error) {
 }
 
 function cockpit_action_btn (func, spec) {
-    var direct_btn =
+    var direct_btn, indirect_btns, btn;
+    var direct_action, disabled;
+
+    direct_btn =
         $('<button>', { 'class': 'btn btn-default' }).text("");
-    var btn =
+
+    indirect_btns = [ ];
+    disabled = [ ];
+    spec.forEach (function (s, i) {
+        indirect_btns[i] = $('<li>', { 'class': 'presentation' }).
+            append(
+                $('<a>', { 'role': 'menuitem',
+                           'on': { 'click': function () {
+                                              if (!disabled[i])
+                                                  func (s.action);
+                                            }
+                                 }
+                         }).text(s.title));
+        disabled[i] = false;
+    });
+
+    btn =
         $('<div>', { 'class': 'btn-group' }).append(
             direct_btn,
             $('<button>', { 'class': 'btn btn-default dropdown-toggle',
@@ -53,28 +72,45 @@ function cockpit_action_btn (func, spec) {
                         'style': 'right:0px;left:auto;min-width:0',
                         'role': 'menu'
                       }).
-                append(
-                    spec.map(function (s) {
-                        return $('<li>').
-                            append(
-                                $('<a>', { 'on': { 'click': function () {
-                                    func (s.action);
-                                }}}).text(s.title));
-                    })));
+                append(indirect_btns));
 
-    btn.select = function (a) {
-        spec.forEach(function (s) {
+    function select (a) {
+        console.log ("S %s", a);
+        spec.forEach(function (s, i) {
             if (s.action == a || (a == 'default' && s.is_default)) {
+                direct_action = s.action;
                 direct_btn.text(s.title);
                 direct_btn.off('click');
                 direct_btn.on('click', function () { func(s.action); });
+                direct_btn.prop('disabled', disabled[i]);
             }
         });
-    };
+    }
 
-    btn.select ('default');
+    function enable (a, val) {
+        console.log ("E %s %s", a, val);
+        if (direct_action == a)
+            direct_btn.prop('disabled', !val);
+        spec.forEach(function (s, i) {
+            if (s.action == a) {
+                disabled[i] = !val;
+                indirect_btns[i].toggleClass('disabled', !val);
+            }
+        });
+    }
 
+    select ('default');
+
+    $.data(btn[0], 'cockpit-action-btn-funcs', { select: select, enable: enable });
     return btn;
+}
+
+function cockpit_action_btn_select (btn, action) {
+    $.data(btn[0], 'cockpit-action-btn-funcs').select(action);
+}
+
+function cockpit_action_btn_enable (btn, action, val) {
+    $.data(btn[0], 'cockpit-action-btn-funcs').enable(action, val);
 }
 
 PageDashboard.prototype = {
@@ -155,20 +191,6 @@ PageDashboard.prototype = {
             { title: _("Rescue Terminal"), action: 'rescue' }
         ];
 
-        function xxx (machine) {
-            return function () {
-                var o = $(this).offset();
-                me.server_machine = machine;
-                $('#server-actions-menu button').button('disable');
-                $('#server-actions-menu button.always').button('enable');
-                if (machine.client.state == "ready") {
-                    $('#server-actions-menu button.ready').button('enable');
-                } else if (machine.client.state == "closed")
-                    $('#server-actions-menu button.closed').button('enable');
-                $("#server-actions-menu").popup('open', { x: o.left, y: o.top });
-            };
-        }
-
         this.cpu_plots = [ ];
         machines.empty ();
         for (i = 0; i < cockpit_machines.length; i++) {
@@ -199,7 +221,7 @@ PageDashboard.prototype = {
                             $('<div/>', { 'class': "cockpit-machine-error", 'style': "color:red" })),
                         $('<td/>', { style: "text-align:right;width:180px" }).append(
                             cockpit_action_btn (machine_action_func (cockpit_machines[i]),
-                                                machine_action_spec))));
+                                                machine_action_spec).addClass('cockpit-machine-action'))));
 
             var bd =
                 $('<div/>', { 'class': 'panel-body' }).append(table);
@@ -229,9 +251,10 @@ PageDashboard.prototype = {
             if (i >= cockpit_machines.length)
                 return;
 
+            console.log (action_btn);
+
             var client = cockpit_machines[i].client;
 
-            action_btn.button('disable');
             if (client.state == "ready") {
                 var manager = client.lookup("/com/redhat/Cockpit/Manager",
                                             "com.redhat.Cockpit.Manager");
@@ -246,15 +269,19 @@ PageDashboard.prototype = {
                     $(manager).off('AvatarChanged.dashboard');
                     $(manager).on('AvatarChanged.dashboard', $.proxy (me, "update"));
                 }
-                action_btn.text("Manage");
-                action_btn.button('enable');
+                cockpit_action_btn_enable (action_btn, 'manage', true);
+                cockpit_action_btn_enable (action_btn, 'connect', false);
+                cockpit_action_btn_enable (action_btn, 'disconnect', true);
+                cockpit_action_btn_select (action_btn, 'manage');
                 error_div.text("");
                 error_div.hide();
                 spinner_div.hide();
                 plot_div.show();
             } else if (client.state == "closed") {
-                action_btn.text("Connect");
-                action_btn.button('enable');
+                cockpit_action_btn_enable (action_btn, 'manage', false);
+                cockpit_action_btn_enable (action_btn, 'connect', true);
+                cockpit_action_btn_enable (action_btn, 'disconnect', false);
+                cockpit_action_btn_select (action_btn, 'connect');
                 error_div.text(cockpit_client_error_description(client.error) || "Disconnected");
                 error_div.show();
                 spinner_div.hide();
@@ -264,13 +291,12 @@ PageDashboard.prototype = {
                     me.cpu_plots[i] = null;
                 }
             } else {
-                action_btn.text("Manage");
+                cockpit_action_btn_select (action_btn, 'manage');
                 error_div.text("");
                 error_div.hide();
                 spinner_div.show();
                 plot_div.hide();
             }
-            action_btn.button('refresh');
 
             if (client.state == "ready" && !me.cpu_plots[i]) {
                 var monitor = client.lookup("/com/redhat/Cockpit/CpuMonitor",
