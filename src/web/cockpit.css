@@ -101,6 +101,21 @@ a {
     }
 }
 
+.cockpit-info-table td {
+    padding-left: 0.75em;
+    padding-top: 0.25em;
+}
+
+.cockpit-info-table td:first-child {
+    text-align: right;
+    white-space:nowrap;
+    color: #888888;
+}
+
+.cockpit-info-table td:not(:first-child) {
+    color: black;
+}
+
 
 /* --- XXX -- old stuff --------------------------------------------------------------------------------*/
 

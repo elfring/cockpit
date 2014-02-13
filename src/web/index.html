@@ -289,6 +289,45 @@
       </div>
 
       <div id="system_information">
+        <div class="panel panel-default" style="margin:20px">
+          <div class="panel-body">
+            <table class="cockpit-info-table">
+              <tr>
+                <td>Hardware</td>
+                <td id="system_information_hardware_text"></td>
+              </tr>
+              <tr>
+                <td>Asset Tag</td>
+                <td id="system_information_asset_tag_text"></td>
+              </tr>
+              <tr>
+                <td>BIOS</td>
+                <td id="system_information_bios_text"></td>
+              </tr>
+              <tr>
+                <td>Operating System</td>
+                <td id="system_information_os_text"></td>
+              </tr>
+              <tr>
+                <td>Hostname</td>
+                <td id="system_information_hostname_text"></td>
+                <td><button class="btn btn-default btn-xs" id="system_information_change_hostname_button">
+                    Change
+                </button></td>
+              </tr>
+              <tr>
+                <td>Domain</td>
+                <td id="system_information_realms"></td>
+                <td><button class="btn btn-default btn-xs">
+                    Change
+                </button></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:none">
         <ul data-role="listview" data-inset="true">
           <li><table style="width:100%"><tr>
                 <td style="width:200px;text-align:right"
