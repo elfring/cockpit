@@ -108,7 +108,7 @@ function cockpit_show_change_avatar_dialog (file_input, callback)
         cockpit_fill_canvas (canvas, overlay, reader.result, 256,
                           function () {
                               PageAccountChangeAvatar.callback = callback;
-                              cockpit_popup (null, '#account-change-avatar-dialog');
+                              $('#account-change-avatar-dialog').modal('show');
                           });
     };
     reader.readAsDataURL(file);
@@ -634,7 +634,7 @@ PageAccountChangeAvatar.prototype = {
     },
 
     cancel: function() {
-        $('#account-change-avatar-dialog').popup('close');
+        $('#account-change-avatar-dialog').modal('hide');
     },
 
     apply: function() {
@@ -642,7 +642,7 @@ PageAccountChangeAvatar.prototype = {
                                      this.crop_x, this.crop_y,
                                      this.crop_x+this.crop_s, this.crop_y+this.crop_s,
                                      128, 128, "image/png");
-        $('#account-change-avatar-dialog').popup('close');
+        $('#account-change-avatar-dialog').modal('hide');
         PageAccountChangeAvatar.callback (data);
     }
 };

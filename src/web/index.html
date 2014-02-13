@@ -124,6 +124,113 @@
       </div>
 
       <div id="server">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-2 col-sm-2 sidebar">
+              <ul class="nav nav-sidebar">
+	        <li class="cockpit-image">
+                  <div>
+                    <input data-role="none" type="file"
+                           id="server-avatar-uploader" style="display:none"/>
+                    <img id="server-avatar"
+                         src="images/server-large.png"/>
+                  </div>
+                </li>
+                <li><a onclick="cockpit_go_down('system_information')">
+                    System Information
+                </a></li>
+                <li><a onclick="cockpit_go_down('services')">
+                    System Services
+                </a></li>
+                <li><a onclick="cockpit_go_down('journal')">
+                    Journal
+                </a></li>
+                <li><a onclick="cockpit_go_down('networking')">
+                    Networking
+                </a></li>
+                <li><a onclick="cockpit_go_down('storage')">
+                    Storage
+                </a></li>
+                <li><a onclick="cockpit_go_down('accounts')">
+                    User Accounts
+                </a></li>
+                <li><a onclick="cockpit_go_down('shutdown')">
+                    Shutdown & Reboot
+                </a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-5 col-sm-10">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <a onclick="cockpit_go_down('cpu_status');">
+                    <div class="cockpit-graph">
+                      <div class="cockpit-graph-label"
+                           translatable="yes">CPU</div>
+                      <div class="cockpit-graph-text"
+                           id="server_cpu_text"></div>
+                      <div id="server_cpu_graph"
+                           style="width:100%;height:100%"></div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <a onclick="cockpit_go_down('memory_status')">
+                    <div class="cockpit-graph">
+                      <div class="cockpit-graph-label"
+                           translatable="yes">Memory</div>
+                      <div class="cockpit-graph-text"
+                           id="server_memory_text"></div>
+                      <div id="server_memory_graph"
+                           style="width:100%;height:100%"></div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-5 col-sm-10">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <a onclick="cockpit_go_down('disk_io_status')">
+                    <div class="cockpit-graph">
+                      <div class="cockpit-graph-label"
+                           translatable="yes">Disk I/O</div>
+                      <div class="cockpit-graph-text"
+                           id="server_disk_io_text"></div>
+                      <div id="server_disk_io_graph"
+                           style="width:100%;height:100%"></div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <a onclick="cockpit_go_down('network_traffic_status')">
+                    <div class="cockpit-graph">
+                      <div class="cockpit-graph-label"
+                           translatable="yes">Network Traffic</div>
+                      <div class="cockpit-graph-text"
+                           id="server_network_traffic_text"></div>
+                      <div id="server_network_traffic_graph"
+                           style="width:100%;height:100%"></div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="display:none">
         <div id="server-nav-column">
           <ul data-role="listview" data-inset="true" id="settings">
 	    <li class="cockpit-image">
@@ -1953,43 +2060,6 @@
                   data-mini="true">Change Roles</button>
         </center>
 
-        <div id="account-change-avatar-dialog"
-             data-role="popup" data-history="false"
-             data-overlay-theme="a">
-          <div data-role="header">
-	    <h1 translatable="yes">Change Picture</h1>
-          </div>
-          <div data-role="content">
-            <table>
-              <tr>
-                <td>
-                  <div style="position:relative">
-                    <canvas id="account-change-avatar-canvas"></canvas>
-                    <canvas id="account-change-avatar-overlay"
-                            style="position:absolute;top:0px;left:0px;z-index:10"></canvas>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                      <button id="account-change-avatar-cancel"
-                              data-theme="a"
-                              translatable="yes">Cancel</button>
-                    </div>
-                    <div class="ui-block-b">
-                      <button id="account-change-avatar-apply"
-                              data-theme="b"
-                              translatable="yes">Change</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-
         <div id="account-set-password-dialog"
              data-role="popup" data-history="false"
              data-overlay-theme="a">
@@ -2237,6 +2307,34 @@
             </button>
             <button class="btn btn-default" id="dashboard_add_server_add">
               Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="account-change-avatar-dialog"
+         tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Change Picture</h4>
+          </div>
+          <div class="modal-body">
+            <center>
+              <div style="position:relative;width:256px;height:256px">
+                <canvas id="account-change-avatar-canvas"></canvas>
+                <canvas id="account-change-avatar-overlay"
+                        style="position:absolute;top:0px;left:0px;z-index:10"></canvas>
+              </div>
+            </center>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal">
+              Cancel
+            </button>
+            <button class="btn btn-default" id="account-change-avatar-apply">
+              Change
             </button>
           </div>
         </div>
