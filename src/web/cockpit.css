@@ -107,9 +107,22 @@ a {
     color: black;
 }
 
+/* Category icons for the sidebar */
+
 .cockpit-category-icon {
 	float: left;
 	padding: 5px;
+}
+
+/* Make columns in the sidebar menu on smaller screens */
+
+@media (min-width: 320px) and (max-width: 767px) {
+    .list-group {
+        -moz-column-count: 2;
+        -moz-column-gap: 0;
+        -webkit-column-count: 2;
+        -webkit-column-gap: 0;
+    }
 }
 
 /* --- XXX -- old stuff --------------------------------------------------------------------------------*/
