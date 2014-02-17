@@ -19,30 +19,17 @@
     created by the <code>cockpit_action_btn</code> function.
     <br/>
 
+
     <div class="btn-group">
-      <button class="btn btn-default">
-        Default
+      <button type="button" class="btn btn-default">Default</button>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
       </button>
-      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        <span class="caret"/>
-      </button>
-      <ul class="dropdown-menu" role="menu"
-          style="right:0px;left:auto;min-width:0">
-        <li>
-          <a role="menuitem">
-            Default
-          </a>
-        </li>
-        <li>
-          <a role="menuitem">
-            More
-          </a>
-        </li>
-        <li class="disabled">
-          <a role="menuitem">
-            Disabled
-          </a>
-        </li>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Default</a></li>
+        <li><a href="#">More</a></li>
+        <li class="disabled"><a href="#">Disabled</a></li>
       </ul>
     </div>
 
