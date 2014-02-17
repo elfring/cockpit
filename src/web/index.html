@@ -2267,5 +2267,63 @@
       </div>
     </div>
 
+    <div class="modal fade" id="dashboard_setup_server_dialog"
+         tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Server</h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="cockpit-setup-tab"
+                 id="dashboard_setup_address_tab">
+              <input type="search" class="form-control" id="dashboard_setup_address"/>
+              <label>
+                <input type="checkbox" id="dashboard_setup_address_reuse_creds"/>
+                Login with my current credentials.
+              </label>
+              <ul class="list-group" id="dashboard_setup_address_discovered">
+              </ul>
+            </div>
+
+            <div class="cockpit-setup-tab"
+                 id="dashboard_setup_login_tab">
+              <p>Login to <span id="dashboard_setup_login_address"></span>.</p>
+              <input type="text" class="form-control" id="dashboard_setup_login_user"/>
+              <input type="password" class="form-control" id="dashboard_setup_login_password"/>
+              <div id="dashboard_setup_login_error" colspan="2" style="color:red"></div>
+            </div>
+
+            <div class="cockpit-setup-tab"
+                 id="dashboard_setup_action_tab">
+              <p>Will add server to dashboard:</p>
+              <table>
+                <tr>
+                  <td>Address:</td>
+                  <td id="dashboard_setup_action_address"></td>
+                </tr>
+                <tr>
+                  <td>Fingerprint:</td>
+                  <td id="dashboard_setup_action_fingerprint"></td>
+                </tr>
+              </table>
+              <ul class="list-group" id="dashboard_setup_action_tasks">
+              </ul>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" id="dashboard_setup_prev">
+              Previous
+            </button>
+            <button class="btn btn-primary" id="dashboard_setup_next">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
