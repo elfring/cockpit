@@ -303,7 +303,7 @@ function cockpit_action_btn (func, spec) {
                 append(
                     $('<span>', { 'class': 'caret' })),
             $('<ul>', { 'class': 'dropdown-menu',
-                        'style': 'right:0px;left:auto;min-width:0',
+                        'style': 'right:0px;left:auto;min-width:0;text-align:left',
                         'role': 'menu'
                       }).
                 append(indirect_btns));

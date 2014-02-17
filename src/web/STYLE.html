@@ -13,6 +13,39 @@
 
     <h1>Cockpit Elements of Style</h1>
 
+    <h2>Menu button</h2>
+
+    This is a drop-down menu with a default choice.  It is normally
+    created by the <code>cockpit_action_btn</code> function.
+    <br/>
+
+    <div class="btn-group">
+      <button class="btn btn-default">
+        Default
+      </button>
+      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"/>
+      </button>
+      <ul class="dropdown-menu" role="menu"
+          style="right:0px;left:auto;min-width:0">
+        <li>
+          <a role="menuitem">
+            Default
+          </a>
+        </li>
+        <li>
+          <a role="menuitem">
+            More
+          </a>
+        </li>
+        <li class="disabled">
+          <a role="menuitem">
+            Disabled
+          </a>
+        </li>
+      </ul>
+    </div>
+
     <h2>Information table</h2>
 
     This is a list of name / value pairs.  There might be an optional
@@ -60,8 +93,30 @@
           <div class="modal-body">
             <table class="cockpit-form-table">
               <tr>
-                <td>Text input</td>
+                <td>Filesystem name</td>
                 <td><input class="form-control"></td>
+              </tr>
+              <tr>
+                <td>Filesystem type</td>
+                <td>
+                  <select class="form-control">
+                    <option value="xfs">XFS - Red Hat Enterprise Linux 7 default</option>
+                    <option value="ext4">ext4 - Red Hat Enterprise Linux 6 default</option>
+                    <option value="luks+xfs">Encrypted XFS (LUKS)</option>
+                    <option value="luks+ext4">Encrypted EXT4 (LUKS)</option>
+                    <option value="vfat">VFAT - Compatible with all systems and devices</option>
+                    <option value="ntfs">NTFS - Compatible with most systems</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Store Passphrase?</td>
+                <td>
+                  <select class="form-control">
+	            <option value="no">No</option>
+	            <option value="yes">Yes</option>
+                  </select>
+                </td>
               </tr>
             </table>
           </div>

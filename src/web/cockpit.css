@@ -129,7 +129,8 @@ a {
     padding-top: 0.25em;
 }
 
-.cockpit-form-table td input {
+.cockpit-form-table td input,
+.cockpit-form-table td select {
     width: 100%;
 }
 
