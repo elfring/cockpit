@@ -87,6 +87,13 @@ a {
     box-shadow: none;
 }
 
+@media (min-width: 320px) and (max-width: 767px) {
+    .navbar-primary .navbar-form {
+    margin: 0;
+    padding: 0;
+    }
+}
+
 .navbar-default .navbar-form {
     border-color: transparent;
 }
