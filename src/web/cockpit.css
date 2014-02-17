@@ -91,6 +91,12 @@ a {
     border-color: transparent;
 }
 
+/* Sidebar styling */
+
+.cockpit-sidebar {
+    padding-left: 10px;
+}
+
 /* Break up sidebar in columns in smaller sizes*/
 
 .cockpit-info-table td {
