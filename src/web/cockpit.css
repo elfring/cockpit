@@ -147,7 +147,8 @@ a {
 
 .cockpit-category-icon {
 	float: left;
-	padding: 5px;
+	padding-right: 5px;
+	padding-top: 3px;
 }
 
 /* --- XXX -- old stuff --------------------------------------------------------------------------------*/
