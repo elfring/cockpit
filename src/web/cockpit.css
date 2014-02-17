@@ -129,11 +129,6 @@ a {
     padding-top: 0.25em;
 }
 
-.cockpit-form-table td input:not([type="checkbox"]),
-.cockpit-form-table td select {
-    width: 100%;
-}
-
 .cockpit-form-table td:first-child {
     text-align: right;
     white-space:nowrap;
