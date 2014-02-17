@@ -154,6 +154,16 @@ a {
 	padding-top: 3px;
 }
 
+/* Language dialog styling */
+
+#display-language-list {
+    width: 100%;
+}
+
+#display-language-list option {
+    padding: 10px;
+}
+
 /* --- XXX -- old stuff --------------------------------------------------------------------------------*/
 
 /* Text style for header bar and menu */
@@ -176,11 +186,6 @@ a {
 .cockpit-note {
     font-weight: normal;
     display: none;
-}
-
-#display-language-list {
-    width: 100%;
-    background: white;
 }
 
 .cockpit-network-header {
