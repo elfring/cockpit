@@ -97,6 +97,12 @@ a {
     padding-left: 10px;
 }
 
+@media (min-width: 320px) and (max-width: 767px) {
+    .cockpit-sidebar {
+    padding-left: 15px;
+    }
+}
+
 /* Break up sidebar in columns in smaller sizes*/
 
 .cockpit-info-table td {
