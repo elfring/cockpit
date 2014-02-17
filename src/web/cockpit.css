@@ -107,6 +107,29 @@ a {
     color: black;
 }
 
+.cockpit-form-table {
+    width: 100%;
+}
+
+.cockpit-form-table td {
+    padding-left: 0.75em;
+    padding-top: 0.25em;
+}
+
+.cockpit-form-table td input {
+    width: 100%;
+}
+
+.cockpit-form-table td:first-child {
+    text-align: right;
+    white-space:nowrap;
+}
+
+.cockpit-form-table td:not(:first-child) {
+    width: 100%;
+}
+
+
 /* Category icons for the sidebar */
 
 .cockpit-category-icon {
@@ -142,17 +165,6 @@ a {
 .cockpit-menu li .ui-link:hover
 {
     color: #2489ce;
-}
-
-.cockpit-form-table td {
-    padding-left: 0.75em;
-    padding-top: 0.25em;
-}
-
-.cockpit-form-table td:first-child {
-    text-align: right;
-    white-space:nowrap;
-    width: 50px;
 }
 
 .cockpit-note {

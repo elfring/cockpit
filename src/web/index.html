@@ -295,16 +295,18 @@
               <tr>
                 <td>Hostname</td>
                 <td id="system_information_hostname_text"></td>
-                <td><button class="btn btn-default btn-xs" id="system_information_change_hostname_button">
+                <td>
+                  <button class="btn btn-default" id="system_information_change_hostname_button">
                     Change
-                </button></td>
+                  </button>
+                </td>
               </tr>
               <tr>
                 <td>Domain</td>
                 <td id="system_information_realms"></td>
-                <td><button class="btn btn-default btn-xs">
-                    Change
-                </button></td>
+                <td>
+                  <button class="btn btn-default" onclick="cockpit_go_down('realms')">Change</button>
+                </td>
               </tr>
             </table>
           </div>
@@ -355,54 +357,6 @@
                   <td><div id="system_information_realms"></div></td>
           </tr></table></a></li>
         </ul>
-
-        <div data-role="popup" id="system_information_change_hostname"
-             data-history="false" data-overlay-theme="a">
-          <div data-role="header">
-	    <h1 translatable="yes">Change Hostname</h1>
-          </div>
-          <div data-role="content">
-            <ul data-role="listview" data-inset="true">
-              <li>
-                <table style="width:100%" class="cockpit-form-table">
-                  <tr>
-                    <td translatable="yes">Full Name</td>
-                    <td><input type="text" id="sich-pretty-hostname"
-                               value=""/></td>
-                  </tr>
-                  <tr>
-                    <td translatable="yes">Simple Name</td>
-                    <td><input type="text" id="sich-hostname"
-                               value=""/></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td><div class="cockpit-note" id="sich-note"
-                             translatable="yes">Simple name can only contain
-                        lower-case characters, digits and
-                        dash</div></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">
-                      <div class="ui-grid-a">
-                        <div class="ui-block-a">
-                          <a id="sich-cancel-button"
-                             data-role="button" data-theme="a"
-                             translatable="yes">Cancel</a>
-                        </div>
-                        <div class="ui-block-b">
-                          <a id="sich-apply-button"
-                             data-role="button" data-theme="b"
-                             translatable="yes">Change</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              </li>
-            </ul>
-          </div>
-        </div>
       </div>
 
       <div id="realms">
@@ -2268,6 +2222,44 @@
               Cancel
             </button>
             <button class="btn btn-primary" id="account-change-avatar-apply">
+              Change
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="system_information_change_hostname"
+         tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Change Hostname</h4>
+          </div>
+          <div class="modal-body">
+            <table class="cockpit-form-table">
+              <tr>
+                <td>Full Name</td>
+                <td><input id="sich-pretty-hostname"></td>
+              </tr>
+              <tr>
+                <td>Simple Name</td>
+                <td><input id="sich-hostname"></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="cockpit-note" id="sich-note" translatable="yes">
+                  Simple name can only contain lower-case characters, digits and
+                  dash
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal">
+              Cancel
+            </button>
+            <button class="btn btn-primary" id="sich-apply-button">
               Change
             </button>
           </div>
