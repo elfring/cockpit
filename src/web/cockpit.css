@@ -104,7 +104,7 @@ a {
     padding-left: 10px;
 }
 
-@media (min-width: 320px) and (max-width: 767px) {
+@media (max-width: 767px) {
     .cockpit-sidebar {
     padding-left: 15px;
     }
