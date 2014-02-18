@@ -313,177 +313,11 @@
         </div>
       </div>
 
-      <div style="display:none">
-        <ul data-role="listview" data-inset="true">
-          <li><table style="width:100%"><tr>
-                <td style="width:200px;text-align:right"
-                    translatable="yes">Hardware</td>
-                <td style="width:30px"></td>
-                <td><div id="system_information_hardware_text"></div></td>
-          </tr></table></li>
-
-          <li><table style="width:100%"><tr>
-                <td style="width:200px;text-align:right"
-                    translatable="yes">Asset Tag</td>
-                <td style="width:30px"></td>
-                <td><div id="system_information_asset_tag_text"></div></td>
-          </tr></table></li>
-
-          <li><table style="width:100%"><tr>
-                <td style="width:200px;text-align:right"
-                    translatable="yes">BIOS</td>
-                <td style="width:30px"></td>
-                <td><div id="system_information_bios_text"></div></td>
-          </tr></table></li>
-
-          <li><table style="width:100%"><tr>
-                <td style="width:200px;text-align:right"
-                    translatable="yes">Operating System</td>
-                <td style="width:30px"></td>
-                <td><div id="system_information_os_text"></div></td>
-          </tr></table></li>
-
-          <li><a id="system_information_change_hostname_button"><table style="width:100%"><tr>
-                  <td style="width:200px;text-align:right"
-                      translatable="yes">Host Name</td>
-                  <td style="width:30px"></td>
-                  <td><div id="system_information_hostname_text"></div></td>
-          </tr></table></a></li>
-
-          <li><a onclick="cockpit_go_down('realms')"><table style="width:100%"><tr>
-                  <td style="width:200px;text-align:right"
-                      translatable="yes">Domain</td>
-                  <td style="width:30px"></td>
-                  <td><div id="system_information_realms"></div></td>
-          </tr></table></a></li>
-        </ul>
-      </div>
-
       <div id="realms">
         <center id="realms-empty-text" translatable="yes">No
           Configured Domains</center>
-        <ul id="realms-list" data-role="listview"
-            data-inset="true"></ul>
+        <ul class="list-group" id="realms-list"</ul>
         <div id="realms-leave-error"></div>
-
-        <div data-role="popup" id="realms-op"
-             data-theme="c" data-overlay-theme="a"
-             data-history="false">
-          <div data-role="header">
-            <h1 id="realms-op-title"></h1>
-          </div>
-          <div data-role="content">
-            <img src="images/spinner.gif"
-                 id="realms-op-init-spinner"
-                 style="display:block;position:absolute;left:50%;top:50%;margin-left:-16px;margin-top:-16px;z-index:100"/>
-
-            <div id="realms-op-fields">
-              <table style="width:100%;opacity:0.0" class="cockpit-form-table" id="realms-op-form">
-                <tr class="realms-op-join-only-row">
-                  <td translatable="yes"
-                      style="text-align:right">Domain Address</td>
-                  <td><input class="realms-op-field" type="text"
-                             id="realms-op-address" value=""/></td>
-                  <td style="width:0px">
-                    <img id="realms-op-address-spinner"
-                         src="images/small-spinner.gif"
-                         style="margin-left:-40px;margin-top:4px"/>
-                    <img id="realms-op-address-error"
-                         src="images/dialog-error.png"
-                         style="margin-left:-40px;margin-top:4px"/>
-                  </td>
-                </tr>
-                <tr class="realms-op-join-only-row">
-                  <td translatable="yes"
-                      style="font-weight:bold;text-align:left;width:200px">Options</td>
-                </tr>
-                <tr class="realms-op-join-only-row">
-                  <td translatable="yes"
-                      style="text-align:right">Computer OU</td>
-                  <td><input class="realms-op-field" type="text"
-                             id="realms-op-computer-ou" value=""/></td>
-                </tr>
-                <tr class="realms-op-join-only-row" id="realms-op-software-row">
-                  <td translatable="yes"
-                      style="text-align:right">Software</td>
-                  <td style="width:500px">
-                    <label for="realms-op-software" class="select"
-                           style="display:none"></label>
-                    <select name="realms-op-software" id="realms-op-software">
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td translatable="yes"
-                      style="text-align:right">Authentication</td>
-                  <td style="width:500px">
-                    <label for="realms-op-auth" class="select"
-                           style="display:none"></label>
-                    <select name="realms-op-auth" id="realms-op-auth">
-                    </select>
-                  </td>
-                </tr>
-                <tr id="realms-op-user-row">
-                  <td translatable="yes"
-                      style="text-align:right">User Name</td>
-                  <td><input class="realms-op-field" type="text"
-                             id="realms-op-user" value=""/></td>
-                </tr>
-                <tr id="realms-op-user-password-row">
-                  <td translatable="yes"
-                      style="text-align:right">User Password</td>
-                  <td><input class="realms-op-field" type="password"
-                             id="realms-op-user-password" value=""/></td>
-                </tr>
-                <tr id="realms-op-admin-row">
-                  <td translatable="yes"
-                      style="text-align:right">Domain Administrator
-                    Name</td>
-                  <td><input class="realms-op-field" type="text"
-                             id="realms-op-admin" value=""/></td>
-                </tr>
-                <tr id="realms-op-admin-password-row">
-                  <td translatable="yes"
-                      style="text-align:right">Domain Administrator
-                    Password</td>
-                  <td><input class="realms-op-field" type="password"
-                             id="realms-op-admin-password" value=""/></td>
-                </tr>
-                <tr id="realms-op-otp-row">
-                  <td translatable="yes"
-                      style="text-align:right">One Time Password</td>
-                  <td><input class="realms-op-field" type="password"
-                             id="realms-op-ot-password" value=""/></td>
-                </tr>
-                <tr style="height:50px">
-                  <td colspan="3">
-                    <div id="realms-op-error"
-                         style="text-align:left;font-weight:bold"></div>
-                    <pre id="realms-op-diagnostics"
-                         style="text-align:left"></pre>
-                  </td>
-                </tr>
-              </table>
-              <table style="width:100%">
-                <tr>
-                  <td style="text-align:left;width:30%">
-                    <button id="realms-op-cancel" data-theme="a"
-                            translatable="yes">Cancel</button>
-                  </td>
-                  <td style="width:40%;text-align:right">
-                    <img id="realms-op-spinner"
-                         src="images/spinner.gif"/>
-                  </td>
-                  <td style="text-align:right;width:30%">
-                    <button id="realms-op-apply"
-                            data-theme="b"></button>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-
       </div>
 
       <div id="storage">
@@ -2324,6 +2158,125 @@
         </div>
       </div>
     </div>
+
+        <div data-role="popup" style="display:none"
+             data-theme="c" data-overlay-theme="a"
+             data-history="false">
+          <div data-role="header">
+            <h1 id="realms-op-title"></h1>
+          </div>
+          <div data-role="content">
+            <img src="images/spinner.gif"
+                 id="realms-op-init-spinner"
+                 style="display:block;position:absolute;left:50%;top:50%;margin-left:-16px;margin-top:-16px;z-index:100"/>
+
+            <div id="realms-op-fields">
+              <table style="width:100%;opacity:0.0" class="cockpit-form-table" id="realms-op-form">
+                <tr class="realms-op-join-only-row">
+                  <td translatable="yes"
+                      style="text-align:right">Domain Address</td>
+                  <td><input class="realms-op-field" type="text"
+                             id="realms-op-address" value=""/></td>
+                  <td style="width:0px">
+                    <img id="realms-op-address-spinner"
+                         src="images/small-spinner.gif"
+                         style="margin-left:-40px;margin-top:4px"/>
+                    <img id="realms-op-address-error"
+                         src="images/dialog-error.png"
+                         style="margin-left:-40px;margin-top:4px"/>
+                  </td>
+                </tr>
+                <tr class="realms-op-join-only-row">
+                  <td translatable="yes"
+                      style="font-weight:bold;text-align:left;width:200px">Options</td>
+                </tr>
+                <tr class="realms-op-join-only-row">
+                  <td translatable="yes"
+                      style="text-align:right">Computer OU</td>
+                  <td><input class="realms-op-field" type="text"
+                             id="realms-op-computer-ou" value=""/></td>
+                </tr>
+                <tr class="realms-op-join-only-row" id="realms-op-software-row">
+                  <td translatable="yes"
+                      style="text-align:right">Software</td>
+                  <td style="width:500px">
+                    <label for="realms-op-software" class="select"
+                           style="display:none"></label>
+                    <select name="realms-op-software" id="realms-op-software">
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td translatable="yes"
+                      style="text-align:right">Authentication</td>
+                  <td style="width:500px">
+                    <label for="realms-op-auth" class="select"
+                           style="display:none"></label>
+                    <select name="realms-op-auth" id="realms-op-auth">
+                    </select>
+                  </td>
+                </tr>
+                <tr id="realms-op-user-row">
+                  <td translatable="yes"
+                      style="text-align:right">User Name</td>
+                  <td><input class="realms-op-field" type="text"
+                             id="realms-op-user" value=""/></td>
+                </tr>
+                <tr id="realms-op-user-password-row">
+                  <td translatable="yes"
+                      style="text-align:right">User Password</td>
+                  <td><input class="realms-op-field" type="password"
+                             id="realms-op-user-password" value=""/></td>
+                </tr>
+                <tr id="realms-op-admin-row">
+                  <td translatable="yes"
+                      style="text-align:right">Domain Administrator
+                    Name</td>
+                  <td><input class="realms-op-field" type="text"
+                             id="realms-op-admin" value=""/></td>
+                </tr>
+                <tr id="realms-op-admin-password-row">
+                  <td translatable="yes"
+                      style="text-align:right">Domain Administrator
+                    Password</td>
+                  <td><input class="realms-op-field" type="password"
+                             id="realms-op-admin-password" value=""/></td>
+                </tr>
+                <tr id="realms-op-otp-row">
+                  <td translatable="yes"
+                      style="text-align:right">One Time Password</td>
+                  <td><input class="realms-op-field" type="password"
+                             id="realms-op-ot-password" value=""/></td>
+                </tr>
+                <tr style="height:50px">
+                  <td colspan="3">
+                    <div id="realms-op-error"
+                         style="text-align:left;font-weight:bold"></div>
+                    <pre id="realms-op-diagnostics"
+                         style="text-align:left"></pre>
+                  </td>
+                </tr>
+              </table>
+              <table style="width:100%">
+                <tr>
+                  <td style="text-align:left;width:30%">
+                    <button id="realms-op-cancel" data-theme="a"
+                            translatable="yes">Cancel</button>
+                  </td>
+                  <td style="width:40%;text-align:right">
+                    <img id="realms-op-spinner"
+                         src="images/spinner.gif"/>
+                  </td>
+                  <td style="text-align:right;width:30%">
+                    <button id="realms-op-apply"
+                            data-theme="b"></button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
 
   </body>
 </html>
