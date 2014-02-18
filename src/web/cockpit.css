@@ -145,6 +145,10 @@ a {
     width: 100%;
 }
 
+.cockpit-form-table td.header {
+    font-weight: bold;
+    text-align: left;
+}
 
 /* Category icons for the sidebar */
 
