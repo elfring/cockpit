@@ -457,7 +457,7 @@ PageRealmsOp.prototype = {
                                        });
                 });
             } else {
-                $("#realms-op").popup("close");
+                $("#realms-op").modal('hide');
             }
         }
 
