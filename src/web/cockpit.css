@@ -168,6 +168,16 @@ a {
     padding: 10px;
 }
 
+/* Inline journal styling */
+
+.panel .panel-heading {
+    border-bottom: 0;
+}
+
+.panel .panel-heading:not(:first-child) {
+    border-top: 1px solid #DDD;
+}
+
 /* --- XXX -- old stuff --------------------------------------------------------------------------------*/
 
 /* Text style for header bar and menu */
